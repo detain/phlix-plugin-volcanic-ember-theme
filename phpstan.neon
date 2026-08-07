@@ -1,0 +1,20 @@
+parameters:
+    level: 9
+    scanDirectories:
+        - dev-stubs
+    paths:
+        - src
+        - tests
+    excludePaths:
+        - vendor
+        - .phpunit.cache
+        - dev-stubs
+    treatPhpDocTypesAsNullable: true
+    reportUnmatchedIgnoredErrors: false
+    ignoreErrors:
+        -
+            message: '#Class Phlix\\Shared\\Plugin\\LifecycleInterface#'
+            path: 'src/VolcanicEmberPlugin.php'
+        -
+            message: '#Class Phlix\\Theming\\ThemeSourceInterface#'
+            path: 'src/VolcanicEmberPlugin.php'

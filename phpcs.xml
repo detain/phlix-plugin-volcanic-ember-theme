@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset name="Phlix Volcanic Ember">
+    <description>PHPCS configuration for Phlix Volcanic Ember plugin</description>
+
+    <arg name="colors"/>
+    <arg value="npb"/>
+    <arg name="cache"/>
+
+    <file>src</file>
+    <file>tests</file>
+    <file>dev-stubs</file>
+
+    <exclude name="Generic.Files.LineLength.TooLong"/>
+
+    <rule ref="PSR12">
+        <exclude name="PSR12.Files.FileHeader.SpacingAfterHeader"/>
+    </rule>
+
+    <rule ref="Squiz.Functions.FunctionDeclarationArgumentSpacing">
+        <properties>
+            <property name="equalsSpacing" value="1"/>
+        </properties>
+    </rule>
+
+    <rule ref="Squiz.WhiteSpace.SuperfluousWhitespace">
+        <properties>
+            <property name="ignoreBlankLines" value="true"/>
+        </properties>
+    </rule>
+</ruleset>
