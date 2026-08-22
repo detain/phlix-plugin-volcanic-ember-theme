@@ -4,12 +4,8 @@ parameters:
         - dev-stubs
     paths:
         - src
-        - tests
     excludePaths:
         - vendor
-        - .phpunit.cache
-        - dev-stubs
-    treatPhpDocTypesAsNullable: true
     reportUnmatchedIgnoredErrors: false
     ignoreErrors:
         -
