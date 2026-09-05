@@ -63,6 +63,27 @@ composer require detain/phlix-plugin-volcanic-ember-theme
 - PHP 8.3+
 - Phlix 0.44.0+
 
+## Development
+
+```bash
+composer install
+```
+
+Run the test suite. `phpunit.xml` bootstraps `tests/bootstrap.php`, which loads the `dev-stubs/` interfaces when the host's `Phlix\Shared\Plugin\LifecycleInterface` and `Phlix\Theming\ThemeSourceInterface` are absent:
+
+```bash
+vendor/bin/phpunit --colors=always
+```
+
+Static analysis and coding standards. Both scripts pass the config file explicitly so `phpstan.neon` picks up `dev-stubs/` via `scanDirectories` and `phpcs.xml` checks `src`, `tests`, and `dev-stubs`:
+
+```bash
+composer phpstan
+composer phpcs
+```
+
+`.github/workflows/test.yml` runs all three on PHP `8.3` and `8.4`, and uploads the `coverage.xml` cobertura report to Codacy from the `8.3` leg.
+
 ## License
 
 MIT License - see [LICENSE](LICENSE) for details.
