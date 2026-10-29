@@ -13,7 +13,7 @@ A warm, fiery dark UI theme for Phlix built on the midnight base with ember oran
 | `--accent-active` | `#e54f2e` | Active/pressed state |
 | `--accent-soft` | `rgba(255, 107, 74, 0.14)` | Soft accent for backgrounds |
 | `--accent-ring` | `rgba(255, 107, 74, 0.70)` | Focus rings |
-| `--accent-text` | `#ff6b4a` | Text on accent |
+| `--accent-text` | `#ff6b4a` | Ember orange AS foreground text/icon — AA (≥4.5:1) on the dark surfaces |
 
 ### Background Stack
 
@@ -34,7 +34,7 @@ A warm, fiery dark UI theme for Phlix built on the midnight base with ember oran
 | `--text-muted` | `#c4a8a4` | Secondary text |
 | `--text-subtle` | `#9d8987` | Tertiary text |
 | `--text-faint` | `#5a4a48` | Disabled/hint text |
-| `--text-on-accent` | `#0a0605` | Text on accent color |
+| `--text-on-accent` | `#0a0605` | Dark ink painted ON accent fills (buttons, badges) — distinct role from `--accent-text` |
 
 ### Borders
 
