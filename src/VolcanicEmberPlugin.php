@@ -85,7 +85,15 @@ final class VolcanicEmberPlugin implements LifecycleInterface, ThemeSourceInterf
                     '--accent-hover' => '#ff8a70',
                     '--accent-active' => '#e54f2e',
                     '--accent-soft' => 'rgba(255, 107, 74, 0.14)',
-                    '--accent-ring' => 'rgba(255, 107, 74, 0.50)',
+                    // The ring is the sole desktop focus cue (box-shadow after
+                    // outline: none) and must clear WCAG 1.4.11's 3:1 non-text
+                    // floor across the full adjacency matrix of this theme's
+                    // grounds (pinned in tests/TokenContrastTest.php). The
+                    // review suggested >= 0.60, but ember red measures 2.54
+                    // worst-adjacency at 0.60 — a dark red on dark volcanic
+                    // browns never reaches 3:1 that low. 0.70 measures 3.16
+                    // worst-adjacency / 3.54 same-ground.
+                    '--accent-ring' => 'rgba(255, 107, 74, 0.70)',
                     // `--accent-text` is the accent color AS FOREGROUND text/
                     // icon (phlix-tokens contract; ~20 ui sites paint it as
                     // `color: var(--accent-text)` on the dark elevation stack).

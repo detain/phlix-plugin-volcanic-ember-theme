@@ -12,7 +12,7 @@ A warm, fiery dark UI theme for Phlix built on the midnight base with ember oran
 | `--accent-hover` | `#ff8a70` | Hover state |
 | `--accent-active` | `#e54f2e` | Active/pressed state |
 | `--accent-soft` | `rgba(255, 107, 74, 0.14)` | Soft accent for backgrounds |
-| `--accent-ring` | `rgba(255, 107, 74, 0.50)` | Focus rings |
+| `--accent-ring` | `rgba(255, 107, 74, 0.70)` | Focus rings |
 | `--accent-text` | `#ff6b4a` | Text on accent |
 
 ### Background Stack

@@ -21,20 +21,28 @@ use RuntimeException;
  *    reach AA (>= 4.5:1) on every background and surface. The ~20 ui sites
  *    consuming it (`color: var(--accent-text)`) sit on the elevation stack.
  *    The ink-on-fill role is `--text-on-accent`, pinned against `--accent`.
+ *  - `--accent-ring` is the sole desktop focus cue (the ui paints it as
+ *    `box-shadow: 0 0 0 Npx var(--accent-ring)` after `outline: none`).
+ *    Every ground it can be painted on, composited, must reach the 3:1
+ *    WCAG 1.4.11 non-text minimum against every ground it can sit adjacent
+ *    to — the full adjacency matrix, not just the same-ground state change.
  *
  * Values are parsed from providedThemes() so the law follows the palette;
  * it is not a duplicated constant table. The WCAG 1.4.3 math is recomputed
  * here from the hexes themselves — no external fixture to drift.
  *
  * Ported from the family reference phlix-plugin-arctic-jade-theme (reviewed
- * SHIP); the ring and subtle laws land with their own cure commits below in
- * item order, so every commit keeps the suite green.
+ * SHIP); the subtle-text law lands with its own cure commit next in item
+ * order, so every commit keeps the suite green.
  */
 #[CoversClass(VolcanicEmberPlugin::class)]
 final class TokenContrastTest extends TestCase
 {
     /** WCAG 1.4.3 AA floor for normal-size text. */
     private const AA_TEXT_RATIO = 4.5;
+
+    /** WCAG 1.4.11 floor for non-text UI components (the focus ring). */
+    private const NON_TEXT_RATIO = 3.0;
 
     private VolcanicEmberPlugin $plugin;
 
@@ -109,6 +117,35 @@ final class TokenContrastTest extends TestCase
         );
     }
 
+    #[Test]
+    public function testAccentRingMeetsNonTextMinimumUnderEveryAdjacency(): void
+    {
+        $ring = $this->parseRgba($this->tokens()['--accent-ring']);
+
+        $grounds = [];
+        foreach ($this->grounds() as $name => $hex) {
+            $grounds[$name] = $this->parseHex($hex);
+        }
+
+        foreach ($grounds as $onName => $paintedOn) {
+            $painted = $this->compositeOver($ring, $paintedOn);
+            foreach ($grounds as $adjName => $adjacent) {
+                $ratio = $this->contrastRatioRgb($painted, $adjacent);
+                $this->assertGreaterThanOrEqual(
+                    self::NON_TEXT_RATIO,
+                    $ratio,
+                    sprintf(
+                        '--accent-ring painted on %s is %s vs adjacent %s: %.2f:1 — below the 3:1 non-text minimum',
+                        $onName,
+                        $this->toHex($painted),
+                        $adjName,
+                        $ratio
+                    )
+                );
+            }
+        }
+    }
+
     /**
      * WCAG 2.x relative luminance of a #rrggbb hex.
      *
@@ -161,5 +198,51 @@ final class TokenContrastTest extends TestCase
             (int) hexdec($matches[2]),
             (int) hexdec($matches[3]),
         ];
+    }
+
+    /**
+     * @param array{int, int, int, float} $rgba
+     * @param array{int, int, int} $ground
+     *
+     * @return array{int, int, int}
+     */
+    private function compositeOver(array $rgba, array $ground): array
+    {
+        [$r, $g, $b, $alpha] = $rgba;
+
+        return [
+            (int) round($alpha * $r + (1 - $alpha) * $ground[0]),
+            (int) round($alpha * $g + (1 - $alpha) * $ground[1]),
+            (int) round($alpha * $b + (1 - $alpha) * $ground[2]),
+        ];
+    }
+
+    /**
+     * @return array{int, int, int, float}
+     */
+    private function parseRgba(string $value): array
+    {
+        $matches = [];
+        if (
+            preg_match('/^rgba\((\d{1,3}), (\d{1,3}), (\d{1,3}), (0?\.\d+|1|0)\)$/', $value, $matches)
+                !== 1
+        ) {
+            throw new RuntimeException("Contrast law expects literal rgba(r, g, b, a), got '$value'");
+        }
+
+        return [
+            (int) $matches[1],
+            (int) $matches[2],
+            (int) $matches[3],
+            (float) $matches[4],
+        ];
+    }
+
+    /**
+     * @param array{int, int, int} $rgb
+     */
+    private function toHex(array $rgb): string
+    {
+        return sprintf('#%02x%02x%02x', $rgb[0], $rgb[1], $rgb[2]);
     }
 }
