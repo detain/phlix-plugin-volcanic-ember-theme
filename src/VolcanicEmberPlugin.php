@@ -86,7 +86,16 @@ final class VolcanicEmberPlugin implements LifecycleInterface, ThemeSourceInterf
                     '--accent-active' => '#e54f2e',
                     '--accent-soft' => 'rgba(255, 107, 74, 0.14)',
                     '--accent-ring' => 'rgba(255, 107, 74, 0.50)',
-                    '--accent-text' => '#0a0605',
+                    // `--accent-text` is the accent color AS FOREGROUND text/
+                    // icon (phlix-tokens contract; ~20 ui sites paint it as
+                    // `color: var(--accent-text)` on the dark elevation stack).
+                    // A near-black ink here — #0a0605 — measured 1.01:1 on
+                    // --bg, invisible on every ground of this dark theme and
+                    // far below the 4.5:1 AA floor. Ember orange as foreground
+                    // measures 5.74:1 worst-ground; the law is pinned in
+                    // tests/TokenContrastTest.php. The ink-on-fill role is
+                    // `--text-on-accent` below, which stays near-black.
+                    '--accent-text' => '#ff6b4a',
 
                     // Background + elevation stack — deep volcanic blacks and browns
                     '--bg' => '#0d0705',
