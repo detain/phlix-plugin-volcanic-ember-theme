@@ -26,14 +26,17 @@ use RuntimeException;
  *    Every ground it can be painted on, composited, must reach the 3:1
  *    WCAG 1.4.11 non-text minimum against every ground it can sit adjacent
  *    to — the full adjacency matrix, not just the same-ground state change.
+ *  - `--text-subtle` carries form placeholders and hints (ui Input.vue
+ *    `::placeholder`, Combobox, CommandPalette, labels/metadata) — body-text
+ *    tier, so it must reach AA (>= 4.5:1) on every ground too.
  *
  * Values are parsed from providedThemes() so the law follows the palette;
  * it is not a duplicated constant table. The WCAG 1.4.3 math is recomputed
  * here from the hexes themselves — no external fixture to drift.
  *
  * Ported from the family reference phlix-plugin-arctic-jade-theme (reviewed
- * SHIP); the subtle-text law lands with its own cure commit next in item
- * order, so every commit keeps the suite green.
+ * SHIP): each law landed with its own cure commit, so every commit kept the
+ * suite green.
  */
 #[CoversClass(VolcanicEmberPlugin::class)]
 final class TokenContrastTest extends TestCase
@@ -115,6 +118,27 @@ final class TokenContrastTest extends TestCase
                 $ratio
             )
         );
+    }
+
+    #[Test]
+    public function testTextSubtleMeetsAaAsBodyTierOnEveryGround(): void
+    {
+        $ink = $this->tokens()['--text-subtle'];
+
+        foreach ($this->grounds() as $name => $ground) {
+            $ratio = $this->contrastRatio($ink, $ground);
+            $this->assertGreaterThanOrEqual(
+                self::AA_TEXT_RATIO,
+                $ratio,
+                sprintf(
+                    '--text-subtle %s on %s (%s) is %.2f:1 — below the 4.5:1 AA floor',
+                    $ink,
+                    $name,
+                    $ground,
+                    $ratio
+                )
+            );
+        }
     }
 
     #[Test]

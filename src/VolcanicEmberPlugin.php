@@ -116,7 +116,16 @@ final class VolcanicEmberPlugin implements LifecycleInterface, ThemeSourceInterf
                     // Text ramp — warm off-whites
                     '--text' => '#f0e6e4',
                     '--text-muted' => '#c4a8a4',
-                    '--text-subtle' => '#8a7270',
+                    // Body-tier token (placeholders, hints, metadata on ui
+                    // surfaces): AA 4.5:1 on every ground is the floor. The
+                    // prior #8a7270 sat at 4.498 on --bg and degraded to 3.64
+                    // on --surface-3. The review floated #96817f, but it still
+                    // measures 4.42 on --surface-3 — one step short; #9d8987
+                    // clears all four grounds (4.90 worst / 6.06 best) while
+                    // keeping the warm hue and the ramp's hierarchy order
+                    // (text 16.3 > muted 9.0 > subtle 6.06 > faint 2.27).
+                    // Pinned in tests/TokenContrastTest.php.
+                    '--text-subtle' => '#9d8987',
                     '--text-faint' => '#5a4a48',
                     '--text-on-accent' => '#0a0605',
 
