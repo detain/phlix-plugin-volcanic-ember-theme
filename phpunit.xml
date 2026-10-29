@@ -20,4 +20,22 @@
             <directory suffix=".php">src</directory>
         </include>
     </source>
+
+    <!-- The CI job's "Upload coverage to Codacy" step reads ./coverage.xml, and
+         the workflow comment (".github/workflows/test.yml") states this file
+         writes it. Before 2026-10-29 that claim was false: this file carried NO
+         coverage-report configuration, so every plain `vendor/bin/phpunit` run
+         (which is exactly how CI invokes it) collected nothing and wrote
+         nothing, the upload step found no input, and `continue-on-error: true`
+         masked it. The block below (ported from the family reference
+         phlix-plugin-sample-theme/phpunit.xml) makes every run with a coverage
+         driver present (CI installs pcov) emit the Cobertura report the upload
+         step consumes. Verified 2026-10-29: with pcov loaded, a bare run writes
+         coverage.xml; without any driver the block is inert and the suite
+         stays green. -->
+    <coverage>
+        <report>
+            <cobertura outputFile="coverage.xml"/>
+        </report>
+    </coverage>
 </phpunit>

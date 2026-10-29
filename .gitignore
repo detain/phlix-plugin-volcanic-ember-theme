@@ -3,6 +3,7 @@
 /.phpunit.result.cache
 /phpunit.cache/
 /coverage/
+/coverage.xml
 /.phpcs.result.cache
 /.phpcs.cache
 /stubgen.lock
