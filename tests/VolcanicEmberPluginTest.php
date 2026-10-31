@@ -89,6 +89,48 @@ final class VolcanicEmberPluginTest extends TestCase
     }
 
     #[Test]
+    public function testLegacyColorAliasesMirrorTheirCanonicalPrimaries(): void
+    {
+        // Review theme-volcanic-ember__webux m3: the five --color-* SPA
+        // aliases ship as literals, not var() references — the payload's
+        // no-var() law (testAllTokensAreValidCssValues above) fixes that
+        // choice. The remaining risk is drift: a future token edit that
+        // updates `--bg` but forgets `--color-bg`, leaving the SPA reading
+        // a stale literal. This pin makes that red in the same commit.
+        $themes = $this->plugin->providedThemes();
+        $tokens = $themes[0]['tokens'];
+        // assertIsArray introduces the iterable type for level 9 (same
+        // rationale as in testAllTokensAreValidCssValues).
+        $this->assertIsArray($tokens);
+
+        $aliases = [
+            '--color-bg' => '--bg',
+            '--color-surface' => '--surface',
+            '--color-text' => '--text',
+            '--color-text-muted' => '--text-muted',
+            '--color-border' => '--border',
+        ];
+
+        foreach ($aliases as $alias => $canonical) {
+            $this->assertArrayHasKey($alias, $tokens, "Legacy alias {$alias} must ship");
+            $this->assertArrayHasKey($canonical, $tokens, "Canonical token {$canonical} must ship");
+
+            // Narrow both values before comparing: they arrive as `mixed`
+            // out of array<mixed> and the message interpolates them.
+            $aliasValue = $tokens[$alias];
+            $canonicalValue = $tokens[$canonical];
+            $this->assertIsString($aliasValue);
+            $this->assertIsString($canonicalValue);
+            $this->assertSame(
+                $canonicalValue,
+                $aliasValue,
+                "Legacy alias {$alias} drifted from {$canonical} — the SPA reads "
+                . "the alias name, so update both literals together"
+            );
+        }
+    }
+
+    #[Test]
     public function testOnEnableDoesNotThrow(): void
     {
         // Official PHPUnit contract for "running this must not throw": the

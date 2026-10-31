@@ -116,7 +116,10 @@ next.
 
 The web SPA's stylesheet still reads these older `--color-*` names, so the
 theme ships them as literal duplicates of the canonical tokens' values. New
-code should target the canonical names in the tables above.
+code should target the canonical names in the tables above. Each alias must
+stay exactly equal to its canonical token — `tests/VolcanicEmberPluginTest.php`
+pins every pair, so editing a canonical value means editing its alias in the
+same commit or the suite goes red.
 
 ## Development
 
