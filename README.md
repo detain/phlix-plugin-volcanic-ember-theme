@@ -130,7 +130,7 @@ Run the test suite. `phpunit.xml` bootstraps `tests/bootstrap.php`, which loads 
 vendor/bin/phpunit --colors=always
 ```
 
-Static analysis and coding standards. Both scripts pass the config file explicitly so `phpstan.neon` picks up `dev-stubs/` via `scanDirectories` and `phpcs.xml` checks `src`, `tests`, and `dev-stubs`:
+Static analysis and coding standards. Both scripts pass the config file explicitly so `phpstan.neon` picks up `dev-stubs/` via `scanDirectories` and analyses `scripts/`, and `phpcs.xml` checks `src`, `tests`, `dev-stubs`, and `scripts` (the S440 gate script's executable layout is its contract, so two structurally-unsatisfiable warnings — PSR-1 side effects and the 120-char advisory line — are scoped off for `scripts/` only):
 
 ```bash
 composer phpstan

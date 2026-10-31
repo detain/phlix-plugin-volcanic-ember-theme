@@ -12,3 +12,10 @@
 *.log
 *.cache
 .DS_Store
+
+# Per-checkout agent tooling and state — never part of a plugin package.
+.caliber/
+.claude/
+.opencode/
+.remember/
+CALIBER_LEARNINGS.md

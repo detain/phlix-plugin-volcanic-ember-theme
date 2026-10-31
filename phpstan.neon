@@ -3,6 +3,11 @@ parameters:
     paths:
         - src
         - tests
+        - scripts
+    # `scripts` added on 2026-10-31 (review theme minors W-min163, EMBER-02):
+    # the S440 gate script is 806 lines of the repo's most security-relevant
+    # PHP and CI executes it, yet it sat outside static analysis. It now passes
+    # level 9 with zero ignores — no suppressions were added for it.
     # `Phlix\Theming\ThemeSourceInterface` is declared by the HOST server, not by
     # any Composer dependency, so PHPStan cannot find it in `vendor/`. It must be
     # INTRODUCED (scanDirectories), not overridden (stubFiles) — `stubFiles` only
