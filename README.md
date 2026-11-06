@@ -85,7 +85,7 @@ next.
 | `--text` | `#f0e6e4` | Primary text (warm off-white) |
 | `--text-muted` | `#c4a8a4` | Secondary text |
 | `--text-subtle` | `#9d8987` | Tertiary text |
-| `--text-faint` | `#5a4a48` | Disabled/hint text |
+| `--text-faint` | `#5a4a48` | Disabled text |
 | `--text-on-accent` | `#0a0605` | Dark ink painted ON accent fills (buttons, badges) — distinct role from `--accent-text` |
 
 ### Borders
