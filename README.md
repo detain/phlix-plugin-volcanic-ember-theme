@@ -18,7 +18,9 @@ anything. Without a pin, `PluginLoader::install()` refuses outright — that is 
 deliberate default-deny, not a bug to work around.
 
 **Admin UI** — *Admin → Plugins* (`/app/admin/plugins`), find **Volcanic Ember
-Theme**, press **Install**, then flip its switch to **enable** it.
+Theme** (the card title is catalog-derived from the repo name; this repo ships
+the theme as *Volcanic Ember*, which is what the Appearance gallery shows),
+press **Install**, then flip its switch to **enable** it.
 
 **CLI** — from the server root, pass the **repository URL**, not the plugin
 name (the URL is what gets rewritten to the pinned tarball):

@@ -1,7 +1,7 @@
 {
     "name": "detain/phlix-plugin-volcanic-ember-theme",
     "type": "phlix-plugin",
-    "description": "Volcanic Ember — a dark ui-theme plugin for Phlix with warm ember accent colors and deep volcanic backgrounds.",
+    "description": "Volcanic Ember — a dark UI theme plugin for Phlix with warm ember accent colors and deep volcanic backgrounds.",
     "license": "MIT",
     "keywords": ["phlix", "phlix-plugin", "ui-theme", "theme", "volcanic-ember", "ember", "dark-theme"],
     "homepage": "https://github.com/detain/phlix-plugin-volcanic-ember-theme",

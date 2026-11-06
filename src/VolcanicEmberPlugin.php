@@ -18,7 +18,7 @@ use Psr\Container\ContainerInterface;
 /**
  * Volcanic Ember theme plugin for Phlix.
  *
- * A warm, fiery dark theme built on the midnight base with ember orange accents
+ * A warm, fiery dark theme built on the midnight base with ember-orange accents
  * evoking volcanic lava and glowing coals. Deep blacks and browns create
  * atmosphere while the bright ember accent provides visual hierarchy.
  *
@@ -80,7 +80,7 @@ final class VolcanicEmberPlugin implements LifecycleInterface, ThemeSourceInterf
                 'dark' => true,
                 'extends' => 'midnight',
                 'tokens' => [
-                    // Accent ramp — ember orange tones
+                    // Accent ramp — ember-orange tones
                     '--accent' => '#ff6b4a',
                     '--accent-hover' => '#ff8a70',
                     '--accent-active' => '#e54f2e',
