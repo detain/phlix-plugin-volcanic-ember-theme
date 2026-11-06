@@ -18,8 +18,10 @@ use RuntimeException;
  * measured on the grounds it is actually painted on:
  *
  *  - `--accent-text` is the accent color AS foreground text/icon — it must
- *    reach AA (>= 4.5:1) on every background and surface. The ~20 ui sites
- *    consuming it (`color: var(--accent-text)`) sit on the elevation stack.
+ *    reach AA (>= 4.5:1) on every background and surface. The 40-plus ui
+ *    sites consuming it (`color: var(--accent-text)`) sit on the elevation
+ *    stack — 43 across 33 src/ files, measured 2026-11-06 at phlix-ui
+ *    `eb9e991c`.
  *    The ink-on-fill role is `--text-on-accent`, pinned against `--accent`.
  *  - `--accent-ring` is the sole desktop focus cue (the ui paints it as
  *    `box-shadow: 0 0 0 Npx var(--accent-ring)` after `outline: none`).

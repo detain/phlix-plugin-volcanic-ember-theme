@@ -95,8 +95,10 @@ final class VolcanicEmberPlugin implements LifecycleInterface, ThemeSourceInterf
                     // worst-adjacency / 3.54 same-ground.
                     '--accent-ring' => 'rgba(255, 107, 74, 0.70)',
                     // `--accent-text` is the accent color AS FOREGROUND text/
-                    // icon (phlix-tokens contract; ~20 ui sites paint it as
-                    // `color: var(--accent-text)` on the dark elevation stack).
+                    // icon (phlix-tokens contract; 40-plus ui sites paint it
+                    // as `color: var(--accent-text)` on the dark elevation
+                    // stack — 43 across 33 src/ files, measured 2026-11-06
+                    // at phlix-ui `eb9e991c`).
                     // A near-black ink here — #0a0605 — measured 1.01:1 on
                     // --bg, invisible on every ground of this dark theme and
                     // far below the 4.5:1 AA floor. Ember orange as foreground
@@ -122,8 +124,11 @@ final class VolcanicEmberPlugin implements LifecycleInterface, ThemeSourceInterf
                     // on --surface-3. The review floated #96817f, but it still
                     // measures 4.42 on --surface-3 — one step short; #9d8987
                     // clears all four grounds (4.90 worst / 6.06 best) while
-                    // keeping the warm hue and the ramp's hierarchy order
-                    // (text 16.3 > muted 9.0 > subtle 6.06 > faint 2.27).
+                    // keeping the warm hue and the ramp's hierarchy order —
+                    // one series on a single ground, --bg, printed %.2f as
+                    // the law source does: text 16.33 > muted 9.04 >
+                    // subtle 6.06 > faint 2.39 (each term's ratio also
+                    // holds its rank on every deeper ground the ui paints).
                     // Pinned in tests/TokenContrastTest.php.
                     '--text-subtle' => '#9d8987',
                     '--text-faint' => '#5a4a48',
