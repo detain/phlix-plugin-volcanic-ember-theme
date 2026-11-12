@@ -83,7 +83,14 @@ final class VolcanicEmberPlugin implements LifecycleInterface, ThemeSourceInterf
                     // Accent ramp — ember-orange tones
                     '--accent' => '#ff6b4a',
                     '--accent-hover' => '#ff8a70',
-                    '--accent-active' => '#e54f2e',
+                    // Pressed state; also foreground ink, so it holds AA on
+                    // every ground (pinned in tests/TokenContrastTest.php).
+                    // The prior #e54f2e measured 4.23:1 on --surface-3.
+                    // Lifted on the same hue and saturation (HSL lightness
+                    // 0.539 -> 0.567) to #e75a3b: 4.56:1 worst-ground
+                    // (--surface-3) / 5.64:1 on --bg, still darker than
+                    // --accent (5.74 worst) so the ramp order holds.
+                    '--accent-active' => '#e75a3b',
                     '--accent-soft' => 'rgba(255, 107, 74, 0.14)',
                     // The ring is the sole desktop focus cue (box-shadow after
                     // outline: none) and must clear WCAG 1.4.11's 3:1 non-text

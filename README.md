@@ -64,7 +64,7 @@ next.
 |-------|-----|-------|
 | `--accent` | `#ff6b4a` | Primary ember accent |
 | `--accent-hover` | `#ff8a70` | Hover state |
-| `--accent-active` | `#e54f2e` | Active/pressed state |
+| `--accent-active` | `#e75a3b` | Active/pressed state |
 | `--accent-soft` | `rgba(255, 107, 74, 0.14)` | Soft accent background |
 | `--accent-ring` | `rgba(255, 107, 74, 0.70)` | Focus rings |
 | `--accent-text` | `#ff6b4a` | Ember orange AS foreground text/icon — AA (≥4.5:1) on the dark surfaces |

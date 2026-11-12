@@ -31,14 +31,29 @@ use RuntimeException;
  *  - `--text-subtle` carries form placeholders and hints (ui Input.vue
  *    `::placeholder`, Combobox, CommandPalette, labels/metadata) — body-text
  *    tier, so it must reach AA (>= 4.5:1) on every ground too.
+ *  - The body ramp (`--text`, `--text-muted`) and the accent ramp used as
+ *    foreground (`--accent`, `--accent-hover`, `--accent-active`) hold AA on
+ *    every shipped ground too — the whole contrast table is asserted as
+ *    luminance math, not just the roles that once failed it.
  *
  * Values are parsed from providedThemes() so the law follows the palette;
  * it is not a duplicated constant table. The WCAG 1.4.3 math is recomputed
  * here from the hexes themselves — no external fixture to drift.
  *
  * Ported from the family reference phlix-plugin-arctic-jade-theme (reviewed
- * SHIP): each law landed with its own cure commit, so every commit kept the
- * suite green.
+ * SHIP) — all five of its laws, including the fifth (body + accent inks on
+ * every ground). Until 2026-11-12 this header claimed the port while the
+ * fifth law was missing; porting it measured `--accent-active` #e54f2e at
+ * 4.23:1 on --surface-3, below AA. Per the owner ruling (lift, not exclude)
+ * the hex was lifted in the same commit as the law, so the suite stayed
+ * green; no ink in the set is carved out. `--text-faint` is excluded exactly
+ * as in the family reference — the disabled/decorative tier, not body text.
+ *
+ * Grounds are the four opaque elevation hexes. `--surface-glass` and
+ * `--surface-glass-strong` are translucent rgba and are not grounds here,
+ * identically to the family reference: what they composite to depends on
+ * the content behind them. Asserting inks over the composited glass is a
+ * family-wide pass, not a per-theme fix.
  */
 #[CoversClass(VolcanicEmberPlugin::class)]
 final class TokenContrastTest extends TestCase
@@ -140,6 +155,37 @@ final class TokenContrastTest extends TestCase
                     $ratio
                 )
             );
+        }
+    }
+
+    #[Test]
+    public function testBodyAndAccentInksMeetAaOnEveryGround(): void
+    {
+        // Completes the contrast law beyond the role-swap trio: every ink the
+        // theme itself ships must clear AA text on every ground it is painted
+        // on (asserted as math rather than transcribed ratios). --text-faint is
+        // deliberately NOT in the set: it is the disabled/decorative tier by
+        // design (~1.9:1 on black in the midnight base), not a body-text role.
+        $tokens = $this->tokens();
+
+        foreach (['--text', '--text-muted', '--accent', '--accent-hover', '--accent-active'] as $inkKey) {
+            $ink = $tokens[$inkKey];
+
+            foreach ($this->grounds() as $name => $ground) {
+                $ratio = $this->contrastRatio($ink, $ground);
+                $this->assertGreaterThanOrEqual(
+                    self::AA_TEXT_RATIO,
+                    $ratio,
+                    sprintf(
+                        '%s %s on %s (%s) is %.2f:1 — below the 4.5:1 AA floor',
+                        $inkKey,
+                        $ink,
+                        $name,
+                        $ground,
+                        $ratio
+                    )
+                );
+            }
         }
     }
 
