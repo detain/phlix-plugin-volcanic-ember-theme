@@ -142,7 +142,7 @@ composer phpstan
 composer phpcs
 ```
 
-`.github/workflows/test.yml` runs all three on PHP `8.3` and `8.4`, and — from the `8.3` leg only — uploads the `coverage.xml` Cobertura report to Codacy. That upload step is `continue-on-error: true`: coverage reporting is best-effort and can never redden the suite (for example, a missing Codacy token degrades silently by design).
+`.github/workflows/test.yml` runs all three on PHP `8.3`, `8.4` and `8.5`, and — from the `8.3` leg only — uploads the `coverage.xml` Cobertura report to Codacy. That upload step is `continue-on-error: true`: coverage reporting is best-effort and can never redden the suite (for example, a missing Codacy token degrades silently by design).
 
 ## License
 
